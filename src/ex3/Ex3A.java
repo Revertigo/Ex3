@@ -13,6 +13,7 @@ public class Ex3A
 	static class Task implements Callable<Boolean>
 	{
 		private long n;
+		
 		public Task(long n)
 		{
 			this.n = n;
@@ -41,6 +42,7 @@ public class Ex3A
 			e.printStackTrace();
 		}
 
+		executor.shutdown();
 		return result;
 	}
 	
