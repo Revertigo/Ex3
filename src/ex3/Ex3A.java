@@ -10,6 +10,11 @@ import java.util.concurrent.TimeoutException;
 
 public class Ex3A
 {
+	/**
+	 * This class represent a task which check if number is prime 
+	 * @author Dekel
+	 *
+	 */
 	static class Task implements Callable<Boolean>
 	{
 		private long n;
@@ -27,6 +32,13 @@ public class Ex3A
 		
 	}
 	
+	/**
+	 * Wrapper function for isPrime(long n). 
+	 * @param n - number to check.
+	 * @param maxTime - maximum calculation time for the function.
+	 * @return true if the number is prime or false if not. Might throw RuntimeException.
+	 * @throws RuntimeException
+	 */
 	public boolean isPrime(long n, double maxTime) throws RuntimeException
 	{
 		ExecutorService executor = Executors.newSingleThreadExecutor();//Creating thread pool.
