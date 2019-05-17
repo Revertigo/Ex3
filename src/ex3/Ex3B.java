@@ -17,6 +17,12 @@ import java.util.concurrent.Future;
 
 public class Ex3B
 {
+	/**
+	 * The function creates n files with each file has a random number of
+	 * lines contains "Hello World".
+	 * @param n - number of files to create.
+	 * @return arrays which contains all the files created by the function.
+	 */
 	public static String[] createFiles(int n)
 	{
 		String [] files = new String[n];
@@ -48,6 +54,10 @@ public class Ex3B
 		return files;
 	}
 	
+	/**
+	 * The function delete files given as input.
+	 * @param fileNames - files's path to delete.
+	 */
 	public static void deleteFiles(String[] fileNames)
 	{
 		for (int i = 0; i < fileNames.length; i++) 
@@ -58,6 +68,10 @@ public class Ex3B
 	}
 	
 	//************á1************
+	/**
+	 * The function creates files, thread for every file, counting number of lines in and print it.
+	 * @param numFiles - number of files to create.
+	 */
 	public static void countLinesThreads(int numFiles)
 	{
 		String [] files = createFiles(numFiles);
@@ -85,11 +99,16 @@ public class Ex3B
 		
 		//Prevent printing inside time measurement(printing is an expensive operation)
 		System.out.println("Run time: " + estimated_time + "ms");
-		System.out.println("Total number of lines of all files: " + LineCounter.getNum_liness());
+		System.out.println("Total number of lines of all files: " + LineCounter.get_num_lines());
 		deleteFiles(files);
 	}
 	
 	
+	/**
+	 * This class represent a task(using Callable) which counts number of lines in file.
+	 * @author Dekel
+	 *
+	 */
 	private static class FileThread implements Callable<Integer>
 	{
 		private String file;
@@ -107,6 +126,11 @@ public class Ex3B
 	}
 	
 	//************á2************
+	/**
+	 * The function creates file, counting each file the number of lines and prints 
+	 * results. Done via Thread pool technique.
+	 * @param num - number of file to create.
+	 */
 	public static void countLinesThreadPool(int num)
 	{
 		String [] files = createFiles(num);
@@ -141,6 +165,11 @@ public class Ex3B
 	}
 	
 	//************á3************
+	/**
+	 * The function creates files, counting the number of line in each one of them
+	 * and prints results. Done without threads using only main thread.
+	 * @param numFiles - number of files to create.
+	 */
 	public static void countLinesOneProcess(int numFiles)
 	{
 		String [] files = createFiles(numFiles);
@@ -159,6 +188,11 @@ public class Ex3B
 		deleteFiles(files);
 	}
 	
+	/**
+	 * The function gets a path to file and counting number of lines in it.
+	 * @param path - path to the file.
+	 * @return number of lines inside.
+	 */
 	static int calc_num_lines(String path)
 	{
 		//Source: https://stackoverflow.com/questions/453018/number-of-lines-in-a-file-in-java

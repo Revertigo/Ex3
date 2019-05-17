@@ -3,10 +3,18 @@ package ex3;
 public class LineCounter implements Runnable
 {
 	private String file_name;
-	private volatile static Integer line_counters = 0;//We don't want the compiler to optimize it out
+	private volatile static Integer lines_counter = 0;//We don't want the compiler to optimize it out
 	
-	public static int getNum_liness() {return line_counters;} 
+	/**
+	 * Getter for lines_counter.
+	 * @return
+	 */
+	public static int get_num_lines() {return lines_counter;} 
 	
+	/**Constructor
+	 * 
+	 * @param file_name - file name.
+	 */
 	public LineCounter(String file_name)
 	{
 		this.file_name = file_name;
@@ -16,8 +24,8 @@ public class LineCounter implements Runnable
 	public void run() 
 	{	
 		int result = Ex3B.calc_num_lines(file_name);
-		synchronized (line_counters) {
-			line_counters += result;
+		synchronized (lines_counter) {
+			lines_counter += result;
 		}
 	}
 }
