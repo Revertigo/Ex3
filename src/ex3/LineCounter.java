@@ -1,5 +1,11 @@
 package ex3;
 
+/**
+ * Represent a task for counting lines. Implements Runnable and used by threads
+ * countLinesThreads.
+ * @author Dekel
+ *
+ */
 public class LineCounter implements Runnable
 {
 	private String file_name;
@@ -23,8 +29,9 @@ public class LineCounter implements Runnable
 	@Override
 	public void run() 
 	{	
-		int result = Ex3B.calc_num_lines(file_name);
-		synchronized (lines_counter) {
+		int result = Util.calc_num_lines(file_name);
+		synchronized (lines_counter) 
+		{
 			lines_counter += result;
 		}
 	}

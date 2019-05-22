@@ -1,13 +1,9 @@
 package ex3;
-import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Random;
-import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
@@ -103,28 +99,6 @@ public class Ex3B
 		deleteFiles(files);
 	}
 	
-	
-	/**
-	 * This class represent a task(using Callable) which counts number of lines in file.
-	 * @author Dekel
-	 *
-	 */
-	private static class FileThread implements Callable<Integer>
-	{
-		private String file;
-		
-		public FileThread(String file) 
-		{
-			this.file = file;
-		}
-		
-		@Override
-		public Integer call() throws Exception 
-		{	
-			return calc_num_lines(file);
-		}		
-	}
-	
 	//************á2************
 	/**
 	 * The function creates file, counting each file the number of lines and prints 
@@ -179,7 +153,7 @@ public class Ex3B
 		
 		for (int i = 0; i < files.length; i++)
 		{	
-			total_lines += calc_num_lines(files[i]);
+			total_lines += Util.calc_num_lines(files[i]);
 		}
 		
 		long estimated_time = System.currentTimeMillis() - start_time;
@@ -188,41 +162,10 @@ public class Ex3B
 		deleteFiles(files);
 	}
 	
-	/**
-	 * The function gets a path to file and counting number of lines in it.
-	 * @param path - path to the file.
-	 * @return number of lines inside.
-	 */
-	static int calc_num_lines(String path)
-	{
-		//Source: https://stackoverflow.com/questions/453018/number-of-lines-in-a-file-in-java
-	    try {
-			 InputStream is = new BufferedInputStream(new FileInputStream(path));
-	        byte[] c = new byte[1024];
-	        int count = 0;
-	        int readChars = 0;
-	        boolean empty = true;
-	        while ((readChars = is.read(c)) != -1) 
-	        {
-	            empty = false;
-	            for (int i = 0; i < readChars; ++i) {
-	                if (c[i] == '\n')
-	                    ++count;
-	            }
-	        }
-	        is.close();
-	        return (count == 0 && !empty) ? 1 : count;
-	    }catch (IOException e) {
-			e.printStackTrace();
-	    }
-	    
-	    return 0;
-	}
-	
 	public static void main(String[]args)
 	{
-		countLinesThreads(5);
-		countLinesThreadPool(5);
-		countLinesOneProcess(5);
+		countLinesThreads(1000);
+		countLinesThreadPool(1000);
+		countLinesOneProcess(1000);
 	}
 }
