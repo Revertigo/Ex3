@@ -36,11 +36,13 @@ class TestMedian
 			assertTrue(ans[i] > size/3);//Even though it's possible, very small chance
 		}
 		ans = BigThanMedian.bigThanMedianAlgo(a, b);
+
 		for (int i = 0; i < ans.length; i++) 
 		{
 			assertTrue(ans[i] > size/3);//Even though it's possible, very small chance
 		}
 	}
+	
 	@Test
 	void test() 
 	{

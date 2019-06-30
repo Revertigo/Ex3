@@ -1,7 +1,5 @@
 package ex4;
 
-import java.util.Arrays;
-
 public class BigThanMedian
 {
 	
@@ -21,10 +19,20 @@ public class BigThanMedian
 		
 		long start_time = System.currentTimeMillis();
 		
+
 		for (int i = 0; i < threads.length; i++)
 		{
-			threads[i] = new WorkerThread(a,b,ans, (ans.length/num_threads)*i, (ans.length/num_threads)*(i+1));
+			final int inner_i = i;//Since i can't be used inside anonymous inner class. 
+			//Using lambda expressions :)
+			Runnable r = ()-> {
+				for (int j = (ans.length/num_threads)*inner_i; j < (ans.length/num_threads)*(inner_i+1); j++) 
+				{
+					ans[j] = Math.max(a[j], b[a.length - j - 1]);
+				}
+			};
+			threads[i] = new Thread(r);
 			threads[i].start();
+			
 		}
 		
 		for (int i = 0; i < threads.length; i++)
